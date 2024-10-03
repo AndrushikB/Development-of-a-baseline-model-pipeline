@@ -1,0 +1,63 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python scripts/data.py
+    deps:
+    - path: scripts/data.py
+      hash: md5
+      md5: bf447ac793e57cd6c93df6c4f433f404
+      size: 1011
+    params:
+      params.yaml:
+        index_col: building_id
+    outs:
+    - path: data/initial_data.csv
+      hash: md5
+      md5: d80271b40304b618ead650d49e7e2e0a
+      size: 3413924
+  fit_model:
+    cmd: python scripts/fit.py
+    deps:
+    - path: data/initial_data.csv
+      hash: md5
+      md5: d80271b40304b618ead650d49e7e2e0a
+      size: 3413924
+    - path: scripts/fit.py
+      hash: md5
+      md5: b9369b5760aebc374025969f6d2bf6a3
+      size: 1741
+    params:
+      params.yaml:
+        index_col: building_id
+        remainder: drop
+        target_col: target
+    outs:
+    - path: models/fitted_model.pkl
+      hash: md5
+      md5: 4725649ef650c14e2fe7733ab32a2805
+      size: 4854
+  evaluate_model:
+    cmd: python scripts/evaluate.py
+    deps:
+    - path: models/fitted_model.pkl
+      hash: md5
+      md5: 4725649ef650c14e2fe7733ab32a2805
+      size: 4854
+    - path: scripts/evaluate.py
+      hash: md5
+      md5: 88f5cf54edde2bfd07a326db163d6a8e
+      size: 909
+    params:
+      params.yaml:
+        index_col: building_id
+        metrics:
+        - max_error
+        - r2
+        n_jobs: -1
+        n_splits: 5
+        target_col: target
+    outs:
+    - path: cv_results/cv_res.json
+      hash: md5
+      md5: a51c7c275286b49a8fcb58d557dc2e27
+      size: 128

@@ -1,0 +1,8 @@
+
+index_col: 'building_id'
+target_col: 'target'
+one_hot_drop: 'if_binary'
+remainder: 'drop'
+n_splits: 5
+metrics: ['max_error', 'r2']
+n_jobs: -1
