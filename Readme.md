@@ -1,4 +1,4 @@
-#Инструкция к проекту
+# Инструкция к проекту
 1. Путь до файлов с кодом DAG:
    - Пайплайн подготовки данных: mle-project-sprint-1-v001/part1_airflow/dags/flats.py
    - Пайплайн обработки данных: mle-project-sprint-1-v001/part1_airflow/dags/flats_clean.py
