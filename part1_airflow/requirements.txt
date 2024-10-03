@@ -1,3 +1,5 @@
+seaborn==0.13.2
+
 Babel==2.13.1
 CacheControl==0.13.1
 ConfigUpdater==3.2

@@ -57,7 +57,8 @@ def clean_churn_dataset():
 
     @task()
     def transform(data: pd.DataFrame):
-    
+        from steps.data_preprocessing import remove_duplicates, fill_missing_values, delete_outliers
+        '''
         def remove_duplicates(data):
             feature_cols = data.columns.drop('building_id').tolist()
             is_duplicated_features = data.duplicated(subset=feature_cols, keep=False)
@@ -92,10 +93,10 @@ def clean_churn_dataset():
             outliers = potential_outliers.any(axis=1)
             data = data[~outliers]
             return data
-        
-        remove_duplicates(data)
-        fill_missing_values(data)
-        delete_outliers(data)
+        '''
+        removed_data = remove_duplicates(data)
+        filled_data = fill_missing_values(removed_data)
+        data = delete_outliers(filled_data)
         
         return data
 
