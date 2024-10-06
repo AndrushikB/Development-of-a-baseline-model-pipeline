@@ -27,8 +27,8 @@ def fit_model():
     preprocessor = ColumnTransformer(
         [
         ('num', StandardScaler(), num_features.columns.tolist()),
-        ('binary', OneHotEncoder(drop=params['one_hot_drop'], handle_unknown='ignore'), binary_features.columns.tolist()),
-        ('cat', OneHotEncoder(handle_unknown='ignore'), cat_features.columns.tolist())
+        ('binary', OneHotEncoder(drop=params['one_hot_drop']), binary_features.columns.tolist()),
+        ('cat', OneHotEncoder(), cat_features.columns.tolist())
         ],
         remainder=params['remainder'],
         verbose_feature_names_out=False
