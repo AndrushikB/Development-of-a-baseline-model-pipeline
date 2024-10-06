@@ -4,5 +4,5 @@ target_col: 'target'
 one_hot_drop: 'if_binary'
 remainder: 'drop'
 n_splits: 5
-metrics: ['max_error', 'r2']
+metrics: ['max_error', 'r2', 'neg_mean_absolute_percentage_error']
 n_jobs: -1

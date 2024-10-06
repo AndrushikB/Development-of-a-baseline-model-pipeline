@@ -2,6 +2,7 @@
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
+from category_encoders.cat_boost import CatBoostEncoder
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.linear_model import LinearRegression
 import yaml
@@ -19,13 +20,15 @@ def fit_model():
     data.drop(columns=['id', 'price'], inplace=True)
 
 	# 3 – реализация основной логики шага с использованием гиперпараметров
-    cat_features = data[['building_type_int', 'has_elevator', 'studio', 'is_apartment']]
+    binary_features = data[['has_elevator', 'studio', 'is_apartment']]
+    cat_features = data[['building_type_int']]
     num_features = data.select_dtypes(['float', 'int']).drop(columns=['building_type_int'])
 
     preprocessor = ColumnTransformer(
         [
         ('num', StandardScaler(), num_features.columns.tolist()),
-        ('cat', OneHotEncoder(drop=params['one_hot_drop']), cat_features.columns.tolist())
+        ('binary', OneHotEncoder(drop=params['one_hot_drop'], handle_unknown='ignore'), binary_features.columns.tolist()),
+        ('cat', OneHotEncoder(handle_unknown='ignore'), cat_features.columns.tolist())
         ],
         remainder=params['remainder'],
         verbose_feature_names_out=False

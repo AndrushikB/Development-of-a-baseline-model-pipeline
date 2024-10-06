@@ -22,7 +22,7 @@ def prepare_flats_dataset():
     
     @task()
     def create_table():
-        from sqlalchemy import MetaData, Table, Column, Integer, Float, BigInteger, Boolean, UniqueConstraint
+        from sqlalchemy import MetaData, Table, Column, Integer, Float, Numeric, Boolean, UniqueConstraint
         hook = PostgresHook('destination_db')
         db_conn = hook.get_sqlalchemy_engine()
         metadata = MetaData()
@@ -46,8 +46,8 @@ def prepare_flats_dataset():
         Column('is_apartment', Boolean),
         Column('studio', Boolean),
         Column('total_area', Float),
-        Column('price', BigInteger),
-        Column('target', BigInteger),
+        Column('price', Numeric),
+        Column('target', Numeric),
         UniqueConstraint('building_id', name='unique_building_constraint')
         )
 

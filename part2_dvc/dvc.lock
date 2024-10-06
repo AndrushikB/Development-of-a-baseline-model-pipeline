@@ -13,44 +13,37 @@ stages:
     outs:
     - path: data/initial_data.csv
       hash: md5
-      md5: 45c6e89e14a78df0cf6d699780432ac3
-      size: 3413924
-      cloud:
-        my_storage:
-          etag: 45c6e89e14a78df0cf6d699780432ac3
-          version_id: 0006239713E7D362
+      md5: 24644c4ab13508e0fc1851502b4165f3
+      size: 2781343
   fit_model:
     cmd: python scripts/fit.py
     deps:
     - path: data/initial_data.csv
       hash: md5
-      md5: 45c6e89e14a78df0cf6d699780432ac3
-      size: 3413924
+      md5: 24644c4ab13508e0fc1851502b4165f3
+      size: 2781343
     - path: scripts/fit.py
       hash: md5
-      md5: b9369b5760aebc374025969f6d2bf6a3
-      size: 1741
+      md5: f66014955f93a2165fa942dafad4888d
+      size: 1945
     params:
       params.yaml:
         index_col: building_id
+        one_hot_drop: if_binary
         remainder: drop
         target_col: target
     outs:
     - path: models/fitted_model.pkl
       hash: md5
-      md5: 7bb7dd2d12ec97806c997619d3a736e8
-      size: 4854
-      cloud:
-        my_storage:
-          etag: 7bb7dd2d12ec97806c997619d3a736e8
-          version_id: 0006239713E704FE
+      md5: 41834705492a1d46f95b35f263d071f5
+      size: 5222
   evaluate_model:
     cmd: python scripts/evaluate.py
     deps:
     - path: models/fitted_model.pkl
       hash: md5
-      md5: 7bb7dd2d12ec97806c997619d3a736e8
-      size: 4854
+      md5: 41834705492a1d46f95b35f263d071f5
+      size: 5222
     - path: scripts/evaluate.py
       hash: md5
       md5: 88f5cf54edde2bfd07a326db163d6a8e
@@ -61,15 +54,12 @@ stages:
         metrics:
         - max_error
         - r2
+        - neg_mean_absolute_percentage_error
         n_jobs: -1
         n_splits: 5
         target_col: target
     outs:
     - path: cv_results/cv_res.json
       hash: md5
-      md5: 92a7376397572a2f94a2f72684304295
-      size: 128
-      cloud:
-        my_storage:
-          etag: 92a7376397572a2f94a2f72684304295
-          version_id: 0006239713E67C20
+      md5: 2fedcc2fd90dcc4a8c0205ba6a5c5c84
+      size: 194

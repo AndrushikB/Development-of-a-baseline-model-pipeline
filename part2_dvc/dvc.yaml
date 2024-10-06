@@ -17,6 +17,7 @@ stages:
       - index_col
       - target_col
       - remainder
+      - one_hot_drop
     outs:
       - models/fitted_model.pkl
   evaluate_model:

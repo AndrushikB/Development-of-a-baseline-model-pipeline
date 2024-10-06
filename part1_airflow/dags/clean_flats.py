@@ -12,9 +12,11 @@ def clean_churn_dataset():
     import pandas as pd
     import numpy as np
     from airflow.providers.postgres.hooks.postgres import PostgresHook
+    from steps.data_preprocessing import remove_duplicates, fill_missing_values, delete_outliers
+
     @task()
     def create_table():
-        from sqlalchemy import MetaData, Table, Column, Integer, Float, BigInteger, Boolean, UniqueConstraint, inspect
+        from sqlalchemy import MetaData, Table, Column, Integer, Float, Numeric, Boolean, UniqueConstraint, inspect
         hook = PostgresHook('destination_db')
         db_engine = hook.get_sqlalchemy_engine()
 
@@ -40,8 +42,8 @@ def clean_churn_dataset():
         Column('is_apartment', Boolean),
         Column('studio', Boolean),
         Column('total_area', Float),
-        Column('price', BigInteger),
-        Column('target', BigInteger),
+        Column('price', Numeric),
+        Column('target', Numeric),
         UniqueConstraint('building_id', name='unique_building_constraint_clean')
         )
         if not inspect(db_engine).has_table(clean_flats.name):
@@ -57,8 +59,7 @@ def clean_churn_dataset():
 
     @task()
     def transform(data: pd.DataFrame):
-        from steps.data_preprocessing import remove_duplicates, fill_missing_values, delete_outliers
-
+        
         removed_data = remove_duplicates(data)
         filled_data = fill_missing_values(removed_data)
         data = delete_outliers(filled_data)
