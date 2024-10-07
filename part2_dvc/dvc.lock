@@ -71,3 +71,7 @@ stages:
       hash: md5
       md5: 9a036ac088973a6b76279e0b5e5a50e4
       size: 202
+      cloud:
+        my_storage:
+          etag: 9a036ac088973a6b76279e0b5e5a50e4
+          version_id: 000623E8761CE598
