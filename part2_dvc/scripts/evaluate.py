@@ -1,6 +1,6 @@
 
 import pandas as pd
-from sklearn.model_selection import StratifiedKFold, cross_validate
+from sklearn.model_selection import cross_validate
 import joblib
 import json
 import yaml
@@ -17,12 +17,11 @@ def evaluate_model():
     data = pd.read_csv('data/initial_data.csv')
 
 	
-    cv_strategy = StratifiedKFold(n_splits=params['n_splits'])
     cv_res = cross_validate(
         pipeline,
         data,
         data[params['target_col']],
-        cv=cv_strategy,
+        cv=5,
         n_jobs=params['n_jobs'],
         scoring=params['metrics']
         )

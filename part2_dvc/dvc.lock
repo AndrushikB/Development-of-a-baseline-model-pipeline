@@ -28,8 +28,8 @@ stages:
       size: 2781343
     - path: scripts/fit.py
       hash: md5
-      md5: ced4d2a9ee2f2254bcca75d8dd448736
-      size: 1943
+      md5: a3e58aa91d38773783d0afdd8f458a1d
+      size: 1899
     params:
       params.yaml:
         index_col: building_id
@@ -54,8 +54,8 @@ stages:
       size: 5150
     - path: scripts/evaluate.py
       hash: md5
-      md5: 88f5cf54edde2bfd07a326db163d6a8e
-      size: 909
+      md5: 15ead507c3dec824b67e184b9b5f0fb2
+      size: 819
     params:
       params.yaml:
         index_col: building_id
@@ -69,9 +69,5 @@ stages:
     outs:
     - path: cv_results/cv_res.json
       hash: md5
-      md5: 6b489fabe339c41b50e4a53015a948cb
-      size: 203
-      cloud:
-        my_storage:
-          etag: 6b489fabe339c41b50e4a53015a948cb
-          version_id: 000623D52026932A
+      md5: 9a036ac088973a6b76279e0b5e5a50e4
+      size: 202
